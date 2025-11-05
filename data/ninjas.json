@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Yoshi",
+    "age": 25,
+    "belt": "green",
+    "rate": 50,
+    "available": true,
+    "thumb": "content/imgs/yoshi.jpeg"
+  },
+  {
+    "name": "Crystal",
+    "age": 30,
+    "belt": "pink",
+    "rate": 30,
+    "available": true,
+    "thumb": "content/imgs/crystal.webp"
+  },
+  {
+    "name": "Ryu",
+    "age": 35,
+    "belt": "orange",
+    "rate": 10,
+    "available": true,
+    "thumb": "content/imgs/ryu.webp"
+  },
+  {
+    "name": "Shaun",
+    "age": 28,
+    "belt": "black",
+    "rate": 100,
+    "available": true,
+    "thumb": "content/imgs/shaun.png"
+  }
+]

@@ -3,7 +3,8 @@ var myNinjaApp = angular.module('myNinjaApp', ['ngRoute']);
 myNinjaApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/home', {
-            templateUrl: 'views/home.html'
+            templateUrl: 'views/home.html',
+            controller: 'NinjaController'
         })
         .when('/directory', {
             templateUrl: 'views/directory.html',
@@ -13,7 +14,23 @@ myNinjaApp.config(['$routeProvider', function ($routeProvider) {
         });
 }]);
 
-myNinjaApp.controller('NinjaController', ['$scope', function ($scope) {
+myNinjaApp.directive('randomNinja', [function() {
+    return {
+        restrict: 'E',
+        scope: {
+            ninjas: '=',
+            title: '='
+        },
+        templateUrl: 'views/random.html',
+        controller: function($scope) {
+            $scope.$watch('ninjas', function() {
+                $scope.random = Math.floor(Math.random() * $scope.ninjas.length);
+            });
+        }
+    };
+}]);
+
+myNinjaApp.controller('NinjaController', ['$scope', '$http', function ($scope, $http) {
     $scope.removeNinja = function (ninja) {
         console.log(ninja);
         $scope.ninjas.splice($scope.ninjas.indexOf(ninja), 1);
@@ -37,36 +54,11 @@ myNinjaApp.controller('NinjaController', ['$scope', function ($scope) {
 
     };
 
-    $scope.ninjas = [{
-        name: 'Yoshi',
-        age: 25,
-        belt: 'green',
-        rate: 50,
-        available: true,
-        thumb: "content/imgs/yoshi.webp"
-    }, {
-        name: 'Crystal',
-        age: 30,
-        belt: 'pink',
-        rate: 30,
-        available: true,
-        thumb: "content/imgs/crystal.webp"
+    $http.get('data/ninjas.json').then(function (response) {
+        console.log(response);
+        $scope.ninjas = response.data;
+    });
 
-    }, {
-        name: 'Ryu',
-        age: 35,
-        belt: 'orange',
-        rate: 10,
-        available: false,
-        thumb: "content/imgs/ryu.webp"
+    console.log(angular.toJson($scope.ninjas));
 
-    }, {
-        name: 'Shaun',
-        age: 28,
-        belt: 'black',
-        rate: 100,
-        available: true,
-        thumb: "content/imgs/shaun.jpg"
-
-    }];
 }]);
